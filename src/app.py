@@ -1,6 +1,3 @@
-# Run this app with `python app.py` and
-# visit http://127.0.0.1:8050/ in your web browser.
-
 from dash import Dash, dcc, html, Input, Output, callback
 from globals import FORMATTED_CSV_PATH, COLORS
 from data import format_data
@@ -8,15 +5,12 @@ import plotly.express as px
 import pandas as pd
 import os
 
-app = Dash()
-
-# assume you have a "long-form" data frame
-# see https://plotly.com/python/px-arguments/ for more options
 if not os.path.exists(FORMATTED_CSV_PATH):
     format_data()
 
 formatted_data = pd.read_csv(FORMATTED_CSV_PATH)
 
+app = Dash()
 app.layout = html.Div(
     [
         html.Div(
