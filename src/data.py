@@ -1,11 +1,11 @@
-from globals import raw_csv_paths, formatted_csv_path
+from globals import RAW_CSV_PATHS, FORMATTED_CSV_PATH
 import pandas as pd
 
 
 def format_data(export=True):
     formatted_data = pd.DataFrame()
 
-    for csv_path in raw_csv_paths:
+    for csv_path in RAW_CSV_PATHS:
         temp = pd.read_csv(csv_path)
         formatted_data = pd.concat(
             [
@@ -20,6 +20,6 @@ def format_data(export=True):
         )
 
     if export:
-        formatted_data.to_csv(formatted_csv_path, index=False)
+        formatted_data.to_csv(FORMATTED_CSV_PATH, index=False)
 
     return formatted_data
