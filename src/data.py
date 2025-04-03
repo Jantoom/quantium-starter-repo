@@ -1,15 +1,15 @@
-from globals import csv_paths, out_path
-import pandas
+from globals import raw_csv_paths, formatted_csv_path
+import pandas as pd
 
 
 def format_data(export=True):
-    out_data = pandas.DataFrame()
+    formatted_data = pd.DataFrame()
 
-    for csv_path in csv_paths:
-        temp = pandas.read_csv(csv_path)
-        out_data = pandas.concat(
+    for csv_path in raw_csv_paths:
+        temp = pd.read_csv(csv_path)
+        formatted_data = pd.concat(
             [
-                out_data,
+                formatted_data,
                 temp.loc[temp["product"] == "pink morsel"]
                 .replace({"price": r"[^\d.]"}, "", regex=True)
                 .assign(Sales=lambda x: x.quantity * x.price.astype(float))
@@ -20,6 +20,6 @@ def format_data(export=True):
         )
 
     if export:
-        out_data.to_csv(out_path, index=False)
+        formatted_data.to_csv(formatted_csv_path, index=False)
 
-    return out_data
+    return formatted_data
