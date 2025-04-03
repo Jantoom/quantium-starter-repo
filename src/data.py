@@ -2,7 +2,7 @@ from globals import RAW_CSV_PATHS, FORMATTED_CSV_PATH
 import pandas as pd
 
 
-def format_data(export=True):
+def format_data():
     formatted_data = pd.DataFrame()
 
     for csv_path in RAW_CSV_PATHS:
@@ -19,7 +19,4 @@ def format_data(export=True):
             ]
         )
 
-    if export:
-        formatted_data.to_csv(FORMATTED_CSV_PATH, index=False)
-
-    return formatted_data
+    formatted_data.to_csv(FORMATTED_CSV_PATH, index=False)

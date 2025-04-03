@@ -9,22 +9,21 @@ import pandas as pd
 import os
 
 app = Dash()
-formatted_data = None
 
 # assume you have a "long-form" data frame
 # see https://plotly.com/python/px-arguments/ for more options
-if os.path.exists(FORMATTED_CSV_PATH):
-    formatted_data = pd.read_csv(FORMATTED_CSV_PATH)
-else:
-    formatted_data = format_data()
+if not os.path.exists(FORMATTED_CSV_PATH):
+    format_data()
 
+formatted_data = pd.read_csv(FORMATTED_CSV_PATH)
 
 app.layout = html.Div(
     [
         html.Div(
             [
                 html.H1(
-                    "Soul Food Pink Morsel Sales",
+                    id="header-1",
+                    children="Soul Food Pink Morsel Sales",
                     style={"textAlign": "center", "color": COLORS["text"]},
                 ),
                 html.Div(
@@ -37,7 +36,7 @@ app.layout = html.Div(
             children=[
                 html.H4("Region/s selected:", style={"paddingLeft": 30}),
                 dcc.RadioItems(
-                    id="fig-1-region-buttons",
+                    id="fig-1-region-picker",
                     options=["All", "North", "South", "East", "West"],
                     value="All",
                     inline=True,
@@ -67,7 +66,7 @@ app.layout = html.Div(
 def update_figure_1(selected_region):
     accepted_regions = (
         [str.lower(selected_region)]
-        if selected_region != "All"
+        if selected_region == None or selected_region != "All"
         else ["north", "south", "east", "west"]
     )
     figure_1_data = (
