@@ -7,7 +7,7 @@
 # Usage: ./run_test_suite.sh
 # Notes: 
 
-source "$(dirname "$0")/venv/bin/activate"
+source "$(dirname "$0")/.env/bin/activate"
 
 pytest --maxfail=1 > /dev/null 2>&1
 
