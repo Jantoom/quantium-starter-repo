@@ -105,10 +105,10 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
+# .env/ <- whitelisting for the program
 .venv
 env/
-# venv/ <- whitelisting for the program
+venv/
 ENV/
 env.bak/
 venv.bak/
